@@ -99,16 +99,16 @@ Here's an example of what the output might look like when you run the script:
 SRC_FOLDER1        :=  folder1/
 SRC_FOLDER2        :=  folder2/
 
-# ------------------------------- PROGRAM ----------------------------------- #
+# ---------------------------------- PROGRAM --------------------------------- #
 
-SRC                +=  main.c
+SRC				+=	main.c
 
-# -------------------------------- FOLDER1 ---------------------------------- #
+# ---------------------------------- FOLDER1 --------------------------------- #
 
 SRC                +=  $(SRC_FOLDER1)file1.c
 SRC                +=  $(SRC_FOLDER1)file2.c
 
-# -------------------------------- FOLDER2 ---------------------------------- #
+# ---------------------------------- FOLDER2 --------------------------------- #
 
 SRC                +=  $(SRC_FOLDER2)file3.c
 SRC                +=  $(SRC_FOLDER2)file4.c
