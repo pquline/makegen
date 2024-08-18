@@ -96,8 +96,8 @@ Here's an example of what the output might look like when you run the script:
 ```makefile
 # --------------------------------- PATHNAMES -------------------------------- #
 
-SRC_FOLDER1        :=  folder1/
-SRC_FOLDER2        :=  folder2/
+SRC_FOLDER1			:=  folder1/
+SRC_FOLDER2			:=  folder2/
 
 # ---------------------------------- PROGRAM --------------------------------- #
 
@@ -105,13 +105,13 @@ SRC				+=	main.c
 
 # ---------------------------------- FOLDER1 --------------------------------- #
 
-SRC                +=  $(SRC_FOLDER1)file1.c
-SRC                +=  $(SRC_FOLDER1)file2.c
+SRC				+=  $(SRC_FOLDER1)file1.c
+SRC				+=  $(SRC_FOLDER1)file2.c
 
 # ---------------------------------- FOLDER2 --------------------------------- #
 
-SRC                +=  $(SRC_FOLDER2)file3.c
-SRC                +=  $(SRC_FOLDER2)file4.c
+SRC				+=  $(SRC_FOLDER2)file3.c
+SRC				+=  $(SRC_FOLDER2)file4.c
 ```
 This output can be directly included in your Makefile.
 
