@@ -1,6 +1,6 @@
 # makegen
 
-`makegen` is a Bash script designed to automate the generation of source file lists in a Makefile from C source files in a structured project directory. It traverses the project's source directories and creates the necessary lines for inclusion in a Makefile, making it easier to manage and compile your project.
+[`makegen`](./makegen) is a Bash script designed to automate the generation of source file lists in a Makefile from C source files in a structured project directory. It traverses the project's source directories and creates the necessary lines for inclusion in a Makefile, making it easier to manage and compile your project.
 
 ## Table of Contents
 
