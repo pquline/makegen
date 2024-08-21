@@ -5,11 +5,11 @@
 ## Table of Contents
 
 - [Features](#features)
+- [Example Output](#example-output)
 - [Usage](#usage)
 - [Installation](#installation)
 - [Project Structure](#project-structure)
 - [Script Breakdown](#script-breakdown)
-- [Example Output](#example-output)
 - [Customization](#customization)
 - [Contributing](#contributing)
 
@@ -19,6 +19,32 @@
 - **Structured Output**: Neatly formatted and organized output in your Makefile.
 - **Dynamic Pathnames**: Automatically detects subdirectories and creates corresponding variable names for them.
 - **Easy Integration**: Can be easily added to your workflow with minimal setup.
+
+## Example Output
+
+Here's an example of what the output might look like when you run the script:
+
+```makefile
+# --------------------------------- PATHNAMES -------------------------------- #
+
+SRC_FOLDER1			:=    folder1/
+SRC_FOLDER2			:=    folder2/
+
+# ---------------------------------- PROGRAM --------------------------------- #
+
+SRC				+=    main.c
+
+# ---------------------------------- FOLDER1 --------------------------------- #
+
+SRC				+=    $(SRC_FOLDER1)file1.c
+SRC				+=    $(SRC_FOLDER1)file2.c
+
+# ---------------------------------- FOLDER2 --------------------------------- #
+
+SRC				+=    $(SRC_FOLDER2)file3.c
+SRC				+=    $(SRC_FOLDER2)file4.c
+```
+This output can be directly included in your Makefile.
 
 ## Usage
 
@@ -88,32 +114,6 @@ Here's a breakdown of what the script does:
 - **Find Subfolders**: The script uses the `find` command to locate all subdirectories within the `srcs` directory.
 - **Generate Headers**: For each subdirectory, the script generates a Makefile variable name based on the subfolder's name and lists all `.c` files within that subdirectory.
 - **Output Generation**: The script formats this information into Makefile-compatible lines, ready to be copied into your Makefile.
-
-## Example Output
-
-Here's an example of what the output might look like when you run the script:
-
-```makefile
-# --------------------------------- PATHNAMES -------------------------------- #
-
-SRC_FOLDER1			:=  folder1/
-SRC_FOLDER2			:=  folder2/
-
-# ---------------------------------- PROGRAM --------------------------------- #
-
-SRC				+=	main.c
-
-# ---------------------------------- FOLDER1 --------------------------------- #
-
-SRC				+=  $(SRC_FOLDER1)file1.c
-SRC				+=  $(SRC_FOLDER1)file2.c
-
-# ---------------------------------- FOLDER2 --------------------------------- #
-
-SRC				+=  $(SRC_FOLDER2)file3.c
-SRC				+=  $(SRC_FOLDER2)file4.c
-```
-This output can be directly included in your Makefile.
 
 ## Customization
 
