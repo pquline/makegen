@@ -1,19 +1,14 @@
 #!/bin/bash
 
-# Define the source directory
-SRC_DIR="srcs"
+SRC_DIR="sources"
 
-# Initialize arrays to hold the subfolder names and the formatted output
 declare -a SUBFOLDERS
 declare -a OUTPUT
 
-# Total width for the header line
 TOTAL_WIDTH=80
 
-# Find all subfolders in the srcs/ directory
 SUBFOLDERS=($(find "$SRC_DIR" -mindepth 1 -maxdepth 1 -type d | sort))
 
-# Generate the header section for the subfolder paths
 OUTPUT+=("# --------------------------------- PATHNAMES -------------------------------- #")
 OUTPUT+=("")
 
@@ -24,45 +19,44 @@ for SUBFOLDER in "${SUBFOLDERS[@]}"; do
 done
 OUTPUT+=("")
 
-# Function to generate a header with a centered name, exactly 80 characters wide
 generate_header() {
     local name="$1"
     local name_length="${#name}"
     local side_dashes_count="$(( (TOTAL_WIDTH - name_length - 6) / 2 ))"  # Adjust for spacing and two dashes around the name
     local extra_dash="$(( (TOTAL_WIDTH - name_length - 6) % 2 ))"
 
-    # Create the header with the name centered, adding extra dash to the left if needed
     local header="$(printf '%*s' "$((side_dashes_count + extra_dash))" | tr ' ' '-') $name $(printf '%*s' "$side_dashes_count" | tr ' ' '-')"
 
     echo "$header"
 }
 
-# Add the PROGRAM section with the 'main.c' file
 PROGRAM_HEADER=$(generate_header "PROGRAM")
 OUTPUT+=("# $PROGRAM_HEADER #")
 OUTPUT+=("")
 OUTPUT+=("SRC\t\t\t\t+=\tmain.c")
 OUTPUT+=("")
 
-# Generate the source files list for each subfolder
 for SUBFOLDER in "${SUBFOLDERS[@]}"; do
     FOLDER_NAME=$(basename "$SUBFOLDER")
     UPPERCASE_FOLDER_NAME=$(echo "$FOLDER_NAME" | tr '[:lower:]' '[:upper:]')
-    C_FILES=($(find "$SUBFOLDER" -name "*.c" | sort))
+
+    # Find all .c files in the subfolder and its subdirectories
+    C_FILES=($(find "$SUBFOLDER" -type f -name "*.c" | sort))
 
     if [ ${#C_FILES[@]} -gt 0 ]; then
         HEADER=$(generate_header "$UPPERCASE_FOLDER_NAME")
         OUTPUT+=("# $HEADER #")
         OUTPUT+=("")
         for C_FILE in "${C_FILES[@]}"; do
-            FILE_NAME=$(basename "$C_FILE")
-            OUTPUT+=("SRC\t\t\t\t+=\t\$(SRC_${UPPERCASE_FOLDER_NAME})$FILE_NAME")
+            # Get the path relative to the subfolder
+            RELATIVE_PATH=${C_FILE#"$SUBFOLDER/"}
+            OUTPUT+=("SRC\t\t\t\t+=\t\$(SRC_${UPPERCASE_FOLDER_NAME})$RELATIVE_PATH")
         done
         OUTPUT+=("")
     fi
 done
 
-# Print the output
 for LINE in "${OUTPUT[@]}"; do
     echo -e "$LINE"
 done
+
